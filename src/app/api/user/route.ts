@@ -9,7 +9,7 @@ export async function GET() {
   const users = await prisma.user.findMany();
 
   if (!users) {
-    return NextResponse.json<ApiResponse<never>>({
+    return NextResponse.json<ApiResponse<null>>({
       success: false,
       message: "Erreur lors de la récupération des utilisateurs.",
       data: null,
