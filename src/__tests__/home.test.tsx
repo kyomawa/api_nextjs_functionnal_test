@@ -2,14 +2,16 @@
  * @jest-environment jsdom
  */
 import { render, screen } from "@testing-library/react";
-import { getUsers } from "@/app/actions/user";
+import { createUser, getUsers } from "@/app/actions/user";
 import HomeButton from "@/app/components/HomeButton";
 import HomeUserList from "@/app/components/HomeUserList";
+import { HomeForm } from "@/app/components/HomeForm";
 
 // ========================================================================================================
 
 jest.mock("@/app/actions/user", () => ({
   getUsers: jest.fn(),
+  createUser: jest.fn(),
 }));
 
 // ========================================================================================================
@@ -60,6 +62,17 @@ describe("Home", () => {
     render(<HomeUserList users={[]} />);
 
     const message = await screen.findByText("Aucun utilisateur(s) trouvé(s).");
+    expect(message).toBeInTheDocument();
+  });
+
+  // ======================================================================================================
+
+  it("should display 'L'utilisateur a été créé avec succès.' when a user is created", async () => {
+    (createUser as jest.Mock).mockResolvedValue({ data: { name: "Bryan", email: "bryancellier@gmail.com" } });
+
+    render(<HomeForm />);
+
+    const message = await screen.findByText("L'utilisateur a été créé avec succès.");
     expect(message).toBeInTheDocument();
   });
 
