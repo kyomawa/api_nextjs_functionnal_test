@@ -45,7 +45,7 @@ export function HomeForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
         <div className="flex gap-x-2 text-black">
-          <FormInputField name="name" title="Nom" form={form} />
+          <FormInputField name="name" title="Name" form={form} />
           <FormInputField name="email" title="Email" form={form} />
         </div>
         <Button isLoading={isLoading} type="submit" className="w-fit">
