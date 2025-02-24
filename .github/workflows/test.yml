@@ -12,7 +12,7 @@ env:
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,14 +27,5 @@ jobs:
         run: npm run lint
       - name: Run tests
         run: npm run test
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Node.js version
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
-
       - name: Build
         run: npm run build

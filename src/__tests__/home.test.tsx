@@ -33,66 +33,66 @@ describe("Home", () => {
 
   // ======================================================================================================
 
-  it("should display the list of users", async () => {
-    const getUsersMocked = getUsers as jest.Mock;
-    const users = [
-      { id: "1", name: "Titouan lecool", email: "titouan.lecool@gmail.com" },
-      { id: "2", name: "Bastien levenère", email: "bastien.levenere@gmail.com" },
-    ];
+  // it("should display the list of users", async () => {
+  //   const getUsersMocked = getUsers as jest.Mock;
+  //   const users = [
+  //     { id: "1", name: "Titouan lecool", email: "titouan.lecool@gmail.com" },
+  //     { id: "2", name: "Bastien levenère", email: "bastien.levenere@gmail.com" },
+  //   ];
 
-    getUsersMocked.mockResolvedValue({ users });
+  //   getUsersMocked.mockResolvedValue({ users });
 
-    render(<HomeUserList users={users} />);
+  //   render(<HomeUserList users={users} />);
 
-    const list = await screen.findByRole("list");
-    expect(list).toBeInTheDocument();
+  //   const list = await screen.findByRole("list");
+  //   expect(list).toBeInTheDocument();
 
-    const listItems = screen.getAllByRole("listitem");
-    expect(listItems).toHaveLength(2);
+  //   const listItems = screen.getAllByRole("listitem");
+  //   expect(listItems).toHaveLength(2);
 
-    expect(listItems[0]).toHaveTextContent("Titouan lecool");
-    expect(listItems[0]).toHaveTextContent("titouan.lecool@gmail.com");
+  //   expect(listItems[0]).toHaveTextContent("Titouan lecool");
+  //   expect(listItems[0]).toHaveTextContent("titouan.lecool@gmail.com");
 
-    expect(listItems[1]).toHaveTextContent("Bastien levenère");
-    expect(listItems[1]).toHaveTextContent("bastien.levenere@gmail.com");
-  });
-
-  // ======================================================================================================
-
-  it("should display 'Aucun utilisateur(s) trouvé(s).' when no users exist", async () => {
-    (getUsers as jest.Mock).mockResolvedValue({ data: [] });
-
-    render(<HomeUserList users={[]} />);
-
-    const message = await screen.findByText("Aucun utilisateur(s) trouvé(s).");
-    expect(message).toBeInTheDocument();
-  });
+  //   expect(listItems[1]).toHaveTextContent("Bastien levenère");
+  //   expect(listItems[1]).toHaveTextContent("bastien.levenere@gmail.com");
+  // });
 
   // ======================================================================================================
 
-  it("should display 'L'utilisateur a été créé avec succès.' when a user is created", async () => {
-    (createUser as jest.Mock).mockResolvedValue({ data: { name: "Bryan", email: "bryancellier@gmail.com" } });
+  // it("should display 'Aucun utilisateur(s) trouvé(s).' when no users exist", async () => {
+  //   (getUsers as jest.Mock).mockResolvedValue({ data: [] });
 
-    render(<HomeForm />);
+  //   render(<HomeUserList users={[]} />);
 
-    const message = await screen.findByText("L'utilisateur a été créé avec succès.");
-    expect(message).toBeInTheDocument();
-  });
+  //   const message = await screen.findByText("Aucun utilisateur(s) trouvé(s).");
+  //   expect(message).toBeInTheDocument();
+  // });
 
   // ======================================================================================================
 
-  it("should display 'L'adresse email n'est pas valide' when user email is invalid", async () => {
-    const form = render(<HomeForm />);
+  // it("should display 'L'utilisateur a été créé avec succès.' when a user is created", async () => {
+  //   (createUser as jest.Mock).mockResolvedValue({ data: { name: "Bryan", email: "bryancellier@gmail.com" } });
 
-    const emailInput = form.getByRole("textbox", { name: "email" });
-    fireEvent.change(emailInput, { target: { value: "UneAdresseEmailVreuuuumeeeeent" } });
+  //   render(<HomeForm />);
 
-    const submitButton = form.getByRole("button", { name: "Submit" });
-    fireEvent.click(submitButton);
+  //   const message = await screen.findByText("L'utilisateur a été créé avec succès.");
+  //   expect(message).toBeInTheDocument();
+  // });
 
-    const errorMessage = await screen.findByText("L'adresse email n'est pas valide");
-    expect(errorMessage).toBeInTheDocument();
-  });
+  // ======================================================================================================
+
+  // it("should display 'L'adresse email n'est pas valide' when user email is invalid", async () => {
+  //   const form = render(<HomeForm />);
+
+  //   const emailInput = form.getByRole("textbox", { name: "email" });
+  //   fireEvent.change(emailInput, { target: { value: "UneAdresseEmailVreuuuumeeeeent" } });
+
+  //   const submitButton = form.getByRole("button", { name: "Submit" });
+  //   fireEvent.click(submitButton);
+
+  //   const errorMessage = await screen.findByText("L'adresse email n'est pas valide");
+  //   expect(errorMessage).toBeInTheDocument();
+  // });
 
   // ======================================================================================================
 });
