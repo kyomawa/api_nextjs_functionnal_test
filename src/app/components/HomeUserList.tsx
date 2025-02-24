@@ -9,7 +9,7 @@ export default function HomeUserList({ users }: { users: User[] | null }) {
   }
 
   return (
-    <ul className="grid grid-cols-3 gap-4">
+    <ul className="grid grid-cols-3 gap-2.5">
       {users.map((user) => (
         <HomeUserCard key={user.id} user={user} />
       ))}
